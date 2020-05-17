@@ -7,7 +7,7 @@ export default function Inicio() {
 
 return (
 <div>
-<h1>Productos</h1>
+<h1>Productos.</h1>
 
 
 <Container className="Contart">
