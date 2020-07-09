@@ -7,7 +7,7 @@ const pool = mysql.createPool(database);
 pool.getConnection((err, connection) => {
     if (err) {
         if (err.code === 'PROTOCOL_CONNECTION_LOST'){
-            console.error('DATABASE CONNECTOR');
+            console.error('DATABASE CONNECTION WAS CLOSED');
         }
 
         if (err.code === 'ER_CON_COUT_ERROR') {
@@ -19,13 +19,12 @@ pool.getConnection((err, connection) => {
         }
     }
 
-    if (connection) {
-        connection.release();
-        console.log('DATABASE CONNECTED');
+    if (connection) connection.release();
+        console.log('DATABASE IS CONNECTED');
         return;
-    }
+    
 });
 
-//ptranforma a promesas los callbacks
+//transforma a promesas los callbacks
 pool.query = promisify(pool.query);
-module.export = pool;
+module.exports = pool;

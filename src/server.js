@@ -13,7 +13,7 @@ app.set('port', process.env.PORT || 3300);
 //middleware:
 app.use(webpackDevMiddleware(webpack(webpackConfig)));
 app.use(express.json());
-
+    
 //rutas:
 app.use(routes);
 
