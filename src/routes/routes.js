@@ -9,9 +9,8 @@ router.get('/', (req, res) => {
 
 router.get('/Api', async (req, res) => {
 
-    //const user = await db_pool.query('select * from usuarios');
     const user = await db_pool.query(`select * from eludumdb.usuarios`);
-
+    
     res.send(user);
 })
 
