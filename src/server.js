@@ -8,12 +8,12 @@ import routes from './routes/routes.js';
 const app = express();
 
 //configurar:
-app.set('port', process.env.PORT || 3300);
+app.set('port', process.env.PORT || 3301);
 
 //middleware:
 app.use(webpackDevMiddleware(webpack(webpackConfig)));
 app.use(express.json());
-    
+
 //rutas:
 app.use(routes);
 
