@@ -26,6 +26,7 @@ class App extends React.Component {
                         aria-describedby="basic-addon1"
                     />
                 </InputGroup>
+                
                 <Button variant="dark">Guardar</Button>
             </div>
         )

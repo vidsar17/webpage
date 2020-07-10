@@ -1,0 +1,3 @@
+10/07/2020:
+    # Se instaló el modulo: nodemailer 
+    # con la instruaccion: npm install nodemailer --save --verbose
