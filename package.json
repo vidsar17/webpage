@@ -40,6 +40,7 @@
     "passport-local": "^1.0.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.2.0",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "xoauth2": "^1.2.0"
   }
 }

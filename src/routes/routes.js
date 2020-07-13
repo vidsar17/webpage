@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 const db_pool = require('../dbConection'); 
 //const Component = require('../client/index.js');
+const sendMail = require('../mails/checkMail')
 
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
@@ -13,6 +14,9 @@ router.get('/', (req, res) => {
     var html = ReactDOMServer.renderToString(
         React.createElement(Component)
     );
+
+    //envio mails:
+    sendMail
 
     res.send(html);
 });
