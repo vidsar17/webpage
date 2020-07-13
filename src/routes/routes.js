@@ -20,6 +20,20 @@ router.get('/', (req, res) => {
 
 });
 
+
+router.get('/api/getList:dato', (req,res) => {
+
+    var datos = req.params.dato;
+    var arrayDeCadenas = datos.split(',');
+    var usuario=arrayDeCadenas[0];
+    var password=arrayDeCadenas[1];
+
+    res.json(usuario);
+    
+    console.log('usuario: '+usuario+', clave: '+password);
+    
+});
+
 router.get('/Api', async(req, res) => {
 
     const user = await db_pool.query(`select * from eludumdb.usuarios`);

@@ -1,7 +1,6 @@
 const React = require('react');
 import { Button, InputGroup, FormControl,Container,Col } from 'react-bootstrap';
 
-import {functionnode} from '../../../login/loginserver';
 
 //const logofooter = require('../imgs/login.jpg');
 
@@ -16,17 +15,13 @@ class App extends React.Component {
         
         this.state = {
           username : '',
-          password:'',
-          usuario:''
+          password:''
         }
         
         this.updateusername = this.updateusername.bind(this);
         this.updatepassword = this.updatepassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         }
-
-
-      
         
         
         updateusername(event){
@@ -40,20 +35,11 @@ class App extends React.Component {
         handleSubmit(){
             //mandar a node
         console.log('Your input value is: ' + this.state.username+' pasword: '+this.state.password)
-        var dato= this.state.username+','+this.state.password;
-
-        fetch(`/api/getList:${dato}`)
-        .then(res => res.json())
-        .then(usernode => this.setState({ usernode }))
-      
         //Send state to the server code
         }
 
 
-
-
     render() {
-        
         return (
             <div>
                 <Container>
@@ -80,7 +66,7 @@ class App extends React.Component {
                
                 </InputGroup>
                 
-                <Button type="submit" onClick={this.handleSubmit}  variant="dark">Inicio</Button>
+                <Button type="submit" onClick={this.handleSubmit}  variant="dark">Registrarse</Button>
                 </Col>   
                 </Container>
             </div>
