@@ -3,5 +3,7 @@
     # con la instruaccion: npm install nodemailer --save --verbose
     # Se usa para el envio de mails
 
-    # se instaló el modulo: xoauth2
-    # con la instruccion: var xoauth2 = require('xoauth2');
+12/07/2020:
+    # Se instalo el modulo: body-parser
+    # con la instruccion: npm install body-parser
+    # Se utiliza para manejar las peticiones a los distintos endpoins
