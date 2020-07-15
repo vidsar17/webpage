@@ -14,14 +14,14 @@ function newMailDelivery(){
     //objeto Transporter: realiza la conexión con el servidor de correo
     
     const trasporter = nodeMailer.createTransport({
-        host: 'smtp.ethereal.com',
+        host: 'smtp.gmail.com',
         port: 587,
         secure: false,
         auth: {
             user: 'eLudumJuego@gmail.com',
             pass: 'eSieteLudum??'
-        }
-
+        },
+        tls: {rejectUnauthorized: false}
     });
     
     const mailDestination = {
