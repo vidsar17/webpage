@@ -49,7 +49,7 @@ router.post('/setNewUser', async (req, res) => {
     
     let num = help.generateCode();
     
-    correo.newMailDelivery();
+    //correo.newMailDelivery();
 
     const newUser = {
         nombre: req.body.nombre,
