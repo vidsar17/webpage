@@ -3,12 +3,14 @@ const router = express.Router();
 const db_pool = require('../dbConection');
 const sendMail = require('../mails/checkMail')
 const helper = require('../helpers/helpers');
+const global = require('../helpers/globales');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const Component = require('../client/component/login/Login')
 const bcrypt = require('bcrypt');
 const help = new helper(); 
 const correo = new sendMail();
+const gb = new global();
 
 
 router.get('/', (req, res) => {
@@ -43,21 +45,22 @@ router.get('/getUser:dato', (req,res) => {
 
 
 router.get('/Api', async (req, res) => {
-
     const user = await db_pool.query(`select * from eludumdb.usuarios`);
     console.log(user);
     res.send(user);
 })
 
 router.post('/captureCod', (req, res) => {
-    const codigo = {num : req.body.numero};
-    res.json(codigo.num);
+    gb.varGlobales.codigo = {num : req.body.numero};
+    res.json(gb.varGlobales.codigo);
 });
 
 router.post('/setNewUser', async (req, res) => {
     let num = help.generateCode(); 
+    
     //correo.newMailDelivery();
-
+    
+    console.log('es: ', gb.varGlobales.codigo) 
     const newUser = {
         nombre: req.body.nombre,
         apellido: req.body.apellido,
@@ -68,7 +71,7 @@ router.post('/setNewUser', async (req, res) => {
     } 
 
     //Si los codigos son iguales inserto el nuevo usuario:
-    if (num != newUser.codigo){
+    if (num == newUser.codigo){
         const password = await bcrypt.hash(newUser.pass, 10);
 
         let nombre_usuario =  newUser.nombre
