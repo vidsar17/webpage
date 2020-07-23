@@ -7,3 +7,8 @@
     # Se instalo el modulo: body-parser
     # con la instruccion: npm install body-parser
     # Se utiliza para manejar las peticiones a los distintos endpoins
+
+19/07/2020:
+    # Se instalo el modulo: bcrypt
+    # con la instruccion: npm install bcrypt
+    # Se utiliza para encriptar la pass

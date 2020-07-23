@@ -6,6 +6,7 @@ const helper = require('../helpers/helpers');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const Component = require('../client/component/login/Login')
+const bcrypt = require('bcrypt');
 const help = new helper(); 
 const correo = new sendMail();
 
@@ -26,10 +27,18 @@ router.get('/getUser:dato', (req,res) => {
     var arrayDeCadenas = datos.split(',');
     var usuario=arrayDeCadenas[0];
     var password=arrayDeCadenas[1];
+    
+    let cryp = help.creatHash(password, usuario);
+
+    if (cryp == true) {
+        res.send('usuario correcto');
+    } else {
+        res.send('error en los datos')
+    }
+
+    console.log(`Usuario: ${usuario}, Clave: ${password}`);
 
     res.json(`Usuario: ${usuario}, Clave: ${password}`);
-    
-    console.log(`Usuario: ${usuario}, Clave: ${password}`);
 });
 
 
@@ -46,9 +55,7 @@ router.post('/captureCod', (req, res) => {
 });
 
 router.post('/setNewUser', async (req, res) => {
-    
-    let num = help.generateCode();
-    
+    let num = help.generateCode(); 
     //correo.newMailDelivery();
 
     const newUser = {
@@ -60,15 +67,26 @@ router.post('/setNewUser', async (req, res) => {
         rol: req.body.rol
     } 
 
-    /*
-    if (num == newUser.codigo){
-        res.send('ok');
+    //Si los codigos son iguales inserto el nuevo usuario:
+    if (num != newUser.codigo){
+        const password = await bcrypt.hash(newUser.pass, 10);
+
+        let nombre_usuario =  newUser.nombre
+        let apellido_usuario = newUser.apellido
+        let fecha_nacimiento = newUser.nac
+        let mail = newUser.mail
+        let rol_usuarios_id_rol_usuarios = newUser.rol
+        try {
+            const setInsert = {nombre_usuario, apellido_usuario, fecha_nacimiento, password, mail, rol_usuarios_id_rol_usuarios}
+            await db_pool.query('insert into eludumdb.usuarios set ?', [setInsert]);
+            res.send('usuario guardado correctamente');
+            // hay que ver como evitar usuarios duplicados
+        } catch(e) {
+            res.status(500).send(`Error: ${e}`);
+        }
     } else {
         res.send('El numero ingresado no es válido. Por favor, vuelva a intentarlo!');
     }
-    */
-    console.log('nombre', newUser.nombre);
-    res.send(newUser.nombre);
 });
 
 module.exports = router;
