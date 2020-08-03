@@ -5,8 +5,8 @@ import LiveReloadPlugin from 'webpack-livereload-plugin';
 export default {
     entry: './src/client/index.js',
     output: {
-        path: '/',
-        filename: 'bundle.js'
+        path: __dirname + 'src/client',
+        filename: 'bundle.js' 
     },
     module: {
         rules: [

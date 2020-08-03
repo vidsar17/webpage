@@ -12,8 +12,13 @@ const help = new helper();
 const correo = new sendMail();
 const gb = new global();
 
+router.get('/home', (req, res)=> {
 
-router.get('/', (req, res) => {
+    res.send('hola');
+    //res.json({saludo: 'Hellow from HOME!!'});
+});
+
+router.get('/login', (req, res) => {
 
     var html = ReactDOMServer.renderToString(
         React.createElement(Component)
@@ -24,12 +29,16 @@ router.get('/', (req, res) => {
 });
 
 router.get('/getUser:dato', (req,res) => {
+    //var datos = req.params.data;
+    var datos = req.params;
 
-    var datos = req.params.dato;
-    var arrayDeCadenas = datos.split(',');
-    var usuario=arrayDeCadenas[0];
-    var password=arrayDeCadenas[1];
+    console.log('sale:', datos);
     
+    var arrayDeCadenas = datos.split(',');
+    var usuario = arrayDeCadenas[0];
+    var password = arrayDeCadenas[1];
+    
+
     let cryp = help.creatHash(password, usuario);
 
     if (cryp == true) {
@@ -50,8 +59,8 @@ router.get('/Api', async (req, res) => {
     res.send(user);
 })
 
-router.post('/captureCod', (req, res) => {
-    gb.varGlobales.codigo = {num : req.body.numero};
+router.post('/captureCod', async (req, res) => {
+    gb.varGlobales.codigo = await {num : req.body.numero};
     res.json(gb.varGlobales.codigo);
 });
 

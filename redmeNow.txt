@@ -12,3 +12,17 @@
     # Se instalo el modulo: bcrypt
     # con la instruccion: npm install bcrypt
     # Se utiliza para encriptar la pass
+
+1/08/2020:
+    # Se instalo el modulo: react-router-dom
+    # con la instruccion: npm install react-router-dom
+    # para poder manejar las rutas
+
+2/08/2020:
+    # Se instalo el modulo: react-scripts
+    # con la instruccion: npm install react-scripts
+    # Se utiliza para
+
+    # Se instalo el modulo react-spring
+    # con la instruccion: npm install react-spring
+    # Se utiliza para

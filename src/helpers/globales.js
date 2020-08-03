@@ -6,3 +6,6 @@ class Globales {
 }
 
 module.exports = Globales;
+
+
+

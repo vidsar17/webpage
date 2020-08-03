@@ -8,15 +8,13 @@ import {functionnode} from '../../../login/loginserver';
 // const myImg = '../imgs/login.jpg';
 
 
-class App extends React.Component {
-
-  
+class App extends React.Component {  
     constructor(props){
         super(props);
         
         this.state = {
-          username : '',
-          password:'',
+        username : '',
+        password:'',
           usuario:''
         }
         
@@ -25,32 +23,31 @@ class App extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         }
 
-
-      
-        
-        
         updateusername(event){
         this.setState({username : event.target.value})
         }
         updatepassword(event){
             this.setState({password : event.target.value})
             }
-        
-        
+    
         handleSubmit(){
-            //mandar a node
-        //console.log('Your input value is: ' + this.state.username+' pasword: '+this.state.password)
-        var dato= this.state.username + ',' + this.state.password;
+            //mandar a node 
+            //console.log('Your input value is: ' + this.state.username+' pasword: '+this.state.password)
+            var dato= this.state.username + ',' + this.state.password;
+            const data = { 
+                user: this.state.username,
+                pass: this.state.password
+            }
 
-        fetch(`/getUser:${dato}`)
-        .then(res => res.json())
-        .then(usernode => this.setState({ usernode }))
-      
-        //Send state to the server code
+            console.log(data);
+            
+            fetch(`/getUser${dato}`)
+            .then(res => res.json())
+            .then(usernode => this.setState({ usernode })) 
+            
+        
+            //Send state to the server code
         }
-
-
-
 
     render() {
         
@@ -74,8 +71,12 @@ class App extends React.Component {
                 <InputGroup className="mb-3">
                     <InputGroup.Prepend>
                     <label>Clave</label>
-                        
-                        <input type="text" id="password" onChange={this.updatepassword}></input>
+                        <div classname="fondo">
+                            <Container>
+                                <input type="text" id="password" onChange={this.updatepassword}></input>
+                            </Container>
+                        </div>
+
                     </InputGroup.Prepend>
                
                 </InputGroup>
