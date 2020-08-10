@@ -9,7 +9,7 @@ import morgan from 'morgan';
 const app = express();
 
 //configurar:
-app.set('port', process.env.PORT || 3303);
+app.set('port', process.env.PORT || 3301);
 
 //middleware:
 app.use(webpackDevMiddleware(webpack(webpackConfig)));

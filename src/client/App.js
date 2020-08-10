@@ -8,7 +8,7 @@ import {
     Link 
 } from "react-router-dom";
 import Login from './component/login/Login'
-import Registro from './component/registro/registro'
+import Registro from './component/registro/Registro'
 import Juego from './component/juego/juego'
 import ReactGame from './component/reactGame/reactGame'
 
@@ -27,7 +27,7 @@ class App extends React.Component {
                         <Link to="/Login">
                             Login
                         </Link>
-                        <Link to="/registro">
+                        <Link to="/Registro">
                             Registro
                         </Link>
                         <Link to="/juego">
@@ -42,7 +42,7 @@ class App extends React.Component {
                         <Route path="/Login">
                             <Login/>
                         </Route>
-                        <Route path="/registro">
+                        <Route path="/Registro">
                             <Registro/>
                         </Route>
                         <Route path="/juego">

@@ -9,44 +9,52 @@ import {functionnode} from '../../../login/loginserver';
 
 
 class App extends React.Component {  
-    constructor(props){
+    constructor(props) {
         super(props);
         
         this.state = {
-        username : '',
-        password:'',
-          usuario:''
+            username : '',
+            password:''
+            //,
+            //usuario:''
         }
         
         this.updateusername = this.updateusername.bind(this);
         this.updatepassword = this.updatepassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        }
+    }
 
         updateusername(event){
-        this.setState({username : event.target.value})
+            this.setState({username : event.target.value})
         }
         updatepassword(event){
             this.setState({password : event.target.value})
-            }
+        }
     
         handleSubmit(){
-            //mandar a node 
-            //console.log('Your input value is: ' + this.state.username+' pasword: '+this.state.password)
-            var dato= this.state.username + ',' + this.state.password;
-            const data = { 
+           const data = { 
                 user: this.state.username,
                 pass: this.state.password
+            }  
+
+            try {
+                let config = {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }
+
+                let res = fetch('http://localhost:3301/getUser', config)
+                let json = res.json()
+
+                console.log('Clien json:', json);
+            } catch (error){
+                if(error){console.log('Error: ', error)}
             }
 
-            console.log(data);
-            
-            fetch(`/getUser${dato}`)
-            .then(res => res.json())
-            .then(usernode => this.setState({ usernode })) 
-            
-        
-            //Send state to the server code
         }
 
     render() {
@@ -63,7 +71,7 @@ class App extends React.Component {
                 <InputGroup className="mb-3">
                     <InputGroup.Prepend>
                         <label>Usuario</label>
-                        <input type="text" id="username" onChange={this.updateusername}></input>
+                        <input type="email" id="username" onChange={this.updateusername}></input>
                     </InputGroup.Prepend>
                
                 </InputGroup>
@@ -73,7 +81,7 @@ class App extends React.Component {
                     <label>Clave</label>
                         <div classname="fondo">
                             <Container>
-                                <input type="text" id="password" onChange={this.updatepassword}></input>
+                                <input type="password" id="password" onChange={this.updatepassword}></input>
                             </Container>
                         </div>
 

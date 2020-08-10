@@ -6,9 +6,10 @@ import Login from  './component/login/Login';
 import App from './App';
 
 import './style/styles.css'
-/*
+
 import './style/main.css'
 
+/*
 import { useTrail, animated } from 'react-spring'
 import './style/styles.css'
 
@@ -44,3 +45,4 @@ render(
     <App/>,
     document.getElementById('app')
 );
+

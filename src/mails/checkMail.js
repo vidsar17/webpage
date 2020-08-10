@@ -2,11 +2,11 @@ const nodeMailer = require('nodemailer');
 const helper = require('../helpers/helpers');
 const help = new helper();
 
-const cod = help.generateCode();
+//const cod = help.generateCode();
 
 class SendMails {
 
-    newMailDelivery(){
+    newMailDelivery(box, cod){
 
         //objeto Transporter: realiza la conexión con el servidor de correo
         const trasporter = nodeMailer.createTransport({
@@ -22,7 +22,7 @@ class SendMails {
         
         const mailDestination = {
             from: 'eLudumJuego@gmail.com',
-            to: 'vangel338@gmail.com',
+            to: box,
             subject: 'Código de comprobación e-Ludum',
             text: `Por favor ingrese este código: ${cod}`
         };

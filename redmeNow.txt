@@ -25,4 +25,18 @@
 
     # Se instalo el modulo react-spring
     # con la instruccion: npm install react-spring
-    # Se utiliza para
+    # Se utiliza para los efectos
+
+8/08/2020:
+    # Se instalo el modulo react-modal
+    # con la instruccion: npm install react-modal
+
+       <Dropdown direction="right">
+                        <DropdownToggle caret>
+                            Dropright
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            <DropdownItem>Another Action</DropdownItem>
+                            <DropdownItem>Another Action</DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
