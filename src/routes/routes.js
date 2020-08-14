@@ -6,11 +6,18 @@ const helper = require('../helpers/helpers');
 const global = require('../helpers/globales');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
-const Component = require('../client/component/login/Login')
+const login = require('../client/component/login/Login')
 const bcrypt = require('bcrypt');
 const help = new helper(); 
 const correo = new sendMail();
 const gb = new global();
+
+//Get user rol:
+async function getRol(){
+    const roles = await db_pool.query(`select * from eludumdb.rol_usuarios`);
+    
+    return roles;
+}
 
 router.get('/home', (req, res)=> {
 
@@ -29,6 +36,8 @@ router.post('/getUser', (req,res) => {
 
 });
 
+//Muestra los roles: ver como pasarlo a Json
+console.log('Roles: ', getRol());
 
 router.get('/Api', async (req, res) => {
     const user = await db_pool.query(`select * from eludumdb.usuarios`);
@@ -76,14 +85,19 @@ router.post('/setNewUser', async (req, res) => {
             const setInsert = {nombre_usuario, apellido_usuario, fecha_nacimiento, password, mail, rol_usuarios_id_rol_usuarios}
             await db_pool.query('insert into eludumdb.usuarios set ?', [setInsert]);
             
-            res.send('usuario guardado correctamente');
+            //res.send('usuario guardado correctamente');
+            const user = [{user: true}];
+            res.json(user);
+        
             // hay que ver como evitar usuarios duplicados
         
         } catch(e) {
             res.status(500).send(`Error: ${e}`);
         }
     } else {
-        res.send('El numero ingresado no es válido. Por favor, vuelva a intentarlo!');
+        //res.send('El numero ingresado no es válido. Por favor, vuelva a intentarlo!');
+        const user = [{user: false}];
+            res.json(user);
     }
         console.log('No son iguales');
 

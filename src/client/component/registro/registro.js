@@ -2,10 +2,15 @@ import React from 'react';
 //import {Modal, ModalHeader, ModalBody} from 'react-modal';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Dropdown, DropdownMenu, DropdownToggle} from 'reactstrap';
 import { Button, InputGroup, FormControl,Container,Col } from 'react-bootstrap';
+import { useState } from 'react';
 
 class App extends React.Component {
     constructor(props){
         super(props);
+
+        //const [dropdownOpen, setDropdownOpen] = useState(false);
+
+        //const toggle = () => setDropdownOpen(prevState => !prevState);
 
         this.state = {
             firstName : '',
@@ -27,6 +32,7 @@ class App extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.openModal = this.openModal.bind(this);
+        
 
         //const [modalIsOpen, setModalIsOpen] = useState(false);
     }
@@ -111,6 +117,7 @@ class App extends React.Component {
             
             let res = fetch('http://localhost:3301/setNewUser', config);
             let json = res.json();
+            console.log(json);
 
         } catch (error){
             if(error){console.log(`Error: ${error}`)}
@@ -159,6 +166,13 @@ class App extends React.Component {
                             <input type="email" id="mail" onChange={this.upDateMail}></input>
                         </InputGroup.Prepend>
                     </InputGroup>
+                    <label htmlFor="roles">Rol de usuario</label>
+                    <select id="roles" name="rol">
+                        <option id="0" value="">Seleccionar Rol</option>
+                        <option id="1" value="orquestador">Orquestador</option>
+                        <option id="2" value="tutor">Tutor</option>
+                        <option id="3" value="jugador">Juegador</option>
+                    </select>
                     
                     <Button type="submit" variant="dark" onClick={this.openModal}>Registrarse</Button>
                     </Col>   

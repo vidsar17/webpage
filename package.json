@@ -52,6 +52,7 @@
     "react-scripts": "^3.4.1",
     "react-spring": "^8.0.27",
     "reactstrap": "^8.5.1",
+    "superagent": "^6.0.0",
     "xoauth2": "^1.2.0"
   }
 }

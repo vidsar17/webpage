@@ -31,12 +31,22 @@
     # Se instalo el modulo react-modal
     # con la instruccion: npm install react-modal
 
-       <Dropdown direction="right">
-                        <DropdownToggle caret>
-                            Dropright
+       <label htmlFor="roles">Rol de usuario</label>
+                    <select id="roles" name="rol">
+                        <option id="0" value="">Seleccionar Rol</option>
+                        <option id="1" value="orquestador">Orquestador</option>
+                        <option id="2" value="tutor">Tutor</option>
+                        <option id="3" value="jugador">Juegador</option>
+                    </select>
+
+     <Dropdown toggle={this.toggle}>
+                    <DropdownToggle caret>
+                        Dropdown
                         </DropdownToggle>
-                        <DropdownMenu>
-                            <DropdownItem>Another Action</DropdownItem>
-                            <DropdownItem>Another Action</DropdownItem>
-                        </DropdownMenu>
+                    <DropdownMenu>
+                        <DropdownItem>Foo Action</DropdownItem>
+                        <DropdownItem>Bar Action</DropdownItem>
+                        <DropdownItem>Quo Action</DropdownItem>
+                    </DropdownMenu>
                     </Dropdown>
+                   
