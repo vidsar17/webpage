@@ -12,17 +12,13 @@ class AuxFunction {
     }; 
 
     creatHash (pass, mail) {
-        const user = db_pool.query(`select * from eludumdb.usuarios where mail = ?`, mail);
+        const passUser = db_pool.query(`select password from eludumdb.usuarios where mail = ?`, mail);
+        const validatePass = bcrypt.compare(pass, passUser[0]);
 
-        if (user) {
-            const validatePass = bcrypt.compare(pass, user.hash);
-            if (validatePass) {
-                return true
-            } else {
-                return false
-            }
+        if (validatePass) {
+            return true
         } else {
-            return false;
+            return false
         }
     };
 

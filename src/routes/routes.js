@@ -1,61 +1,88 @@
+//librerias de node:
 const express = require('express');
 const router = express.Router();
 const db_pool = require('../dbConection');
 const sendMail = require('../mails/checkMail')
 const helper = require('../helpers/helpers');
 const global = require('../helpers/globales');
+const bcrypt = require('bcrypt');
+
+//Renderizar desde React:
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
-const login = require('../client/component/login/Login')
-const bcrypt = require('bcrypt');
+const login = require('../client/component/login/Login');
+const Registro = require('../client/component/registro/Registro');
+
+//metodos de ayuda:
 const help = new helper(); 
 const correo = new sendMail();
 const gb = new global();
 
 //Get user rol:
-async function getRol(){
-    const roles = await db_pool.query(`select * from eludumdb.rol_usuarios`);
+router.get('/getRol', async (req, res) => {
+    var roles = await db_pool.query(`select * from eludumdb.rol_usuarios`);
+    res.json(roles);
+});
+
+router.get('/Registro', (req, res) => {
+    let html = ReactDOMServer.renderToString(<Registro />);
+
+    res.render(html);
+    console.log('Hola lpm!');
+});
+
+router.post('/getUser', async (req,res) => {
+    var getPass;
+    var passCompare = false;
+    var passError = [{error: 'Error'}];
+
+    var passUser = await db_pool.query(`select password from eludumdb.usuarios where mail = ?`, req.body.user);
+
+    if (passUser[0]){ getPass = passUser[0].password; }
     
-    return roles;
-}
+    if (getPass) { passCompare = await bcrypt.compare(req.body.pass, getPass); }
 
-router.get('/home', (req, res)=> {
-
-    res.send('hola');
-    //res.json({saludo: 'Hellow from HOME!!'});
+    if (passCompare == true) {  
+        console.log('Deberia llevarlo a los juegos')
+        passError = [{error: 'Ok'}];
+        res.json(passError);
+    } else {
+        res.json(passError);
+    }
 });
 
-router.post('/getUser', (req,res) => {
-    var datos = req.body;
+router.post('/deleteUser', async (req, res) => {
+    var getPass;
+    var passCompare = false;
+    var passError = [{error: 'Error'}];
 
-    res.json({'ok': 'datos entregados'});
+    var passUser = await db_pool.query(`select password from eludumdb.usuarios where mail = ?`, req.body.user);
 
-    //let cryp = help.creatHash(datos.user, datos.pass);
+    if (passUser[0]){ getPass = passUser[0].password; }
+    
+    if (getPass) { passCompare = await bcrypt.compare(req.body.pass, getPass); }
 
-    console.log(`Usuario: ${datos.user}, Clave: ${datos.pass}`);
-
+    if (passCompare == true) { 
+        //el ususario existe, entonces lo elimino:
+        await db_pool.query(`delete from eludumdb.usuarios where password = ?`, getPass);
+        passError = [{error: 'Ok'}];
+        res.json(passError);
+    } else {
+        //Mando error para indicar que no se encotro el usuario para eleminar
+        res.json(passError);
+    }
 });
-
-//Muestra los roles: ver como pasarlo a Json
-console.log('Roles: ', getRol());
-
-router.get('/Api', async (req, res) => {
-    const user = await db_pool.query(`select * from eludumdb.usuarios`);
-    console.log(user);
-    res.send(user);
-})
 
 router.post('/sendMail', async (req, res) => {
-    const cod = help.generateCode();
-    const mailCod = req.body;
+    var cod = help.generateCode();
+    var mailCod = req.body;
 
-    console.log(mailCod.mail);
+    gb.varGlobales.corre = mailCod.mail
     
     await correo.newMailDelivery(mailCod.mail, cod);
     
     gb.varGlobales.codigo = cod;
 
-    console.log('es: ', gb.varGlobales.codigo); 
 });
 
 router.post('/captureCod', async (req, res) => {
@@ -63,44 +90,53 @@ router.post('/captureCod', async (req, res) => {
     res.json(gb.varGlobales.codigo);
 });
 
+//Nuevos usuarios:
 router.post('/setNewUser', async (req, res) => {
-
+    var passError = [{error: 'Error'}];
     var dataNewUser = req.body;
     var num = parseInt(dataNewUser.code);
     var cod = parseInt(gb.varGlobales.codigo);
 
-    console.log('New user: ', dataNewUser);
-
     if (cod === num ){
-        console.log('Son iguales');
-        const password = await bcrypt.hash(newUser.pass, 10);
+        let setRoles = ['Orquestador', 'Tutor', 'Jugador'];
+        var rol = 0;
 
-        let nombre_usuario =  newUser.nombre
-        let apellido_usuario = newUser.apellido
-        let fecha_nacimiento = newUser.nac
-        let mail = newUser.mail
-        let rol_usuarios_id_rol_usuarios = newUser.rol
+        for (var i=0; i < setRoles.length; i++){
+            if (setRoles[i] == dataNewUser.rol){ 
+                rol = i+1 
+            };
+        }
+
+        let password = await bcrypt.hash(dataNewUser.pass, 10);
+
+        let nombre_usuario =  dataNewUser.firstName 
+        let apellido_usuario = dataNewUser.lastName
+        let fecha_nacimiento = dataNewUser.dateBirth
+        let mail = gb.varGlobales.corre
+        let rol_usuarios_id_rol_usuarios = rol
 
         try {
             const setInsert = {nombre_usuario, apellido_usuario, fecha_nacimiento, password, mail, rol_usuarios_id_rol_usuarios}
-            await db_pool.query('insert into eludumdb.usuarios set ?', [setInsert]);
-            
-            //res.send('usuario guardado correctamente');
-            const user = [{user: true}];
-            res.json(user);
-        
-            // hay que ver como evitar usuarios duplicados
-        
+            //Chequeo que el mail no existe en la base:
+            var checkUser = await db_pool.query(`select mail from eludumdb.usuarios where mail = ?`, mail);
+           
+            if (checkUser.length == 0) {
+                await db_pool.query('insert into eludumdb.usuarios set ?', [setInsert]);
+                //Mensaje de usuario guardado
+                passError = [{error: 'Ok'}];
+                res.json(passError);
+            } else {
+                //Si es distinto de 0 enviar mensaje de usuario existente
+                passError = [{error: 'Error'}];
+                res.json(passError);
+            }        
         } catch(e) {
-            res.status(500).send(`Error: ${e}`);
+            res.status(500).send(`Error viene de router: ${e}`);
         }
     } else {
-        //res.send('El numero ingresado no es válido. Por favor, vuelva a intentarlo!');
-        const user = [{user: false}];
-            res.json(user);
+        passError = [{error: 'Cod error'}];
+        res.json(passError);
     }
-        console.log('No son iguales');
-
 });
 
 module.exports = router;

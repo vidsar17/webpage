@@ -1,16 +1,12 @@
 import React from 'react';
-//import {Modal, ModalHeader, ModalBody} from 'react-modal';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Dropdown, DropdownMenu, DropdownToggle} from 'reactstrap';
 import { Button, InputGroup, FormControl,Container,Col } from 'react-bootstrap';
+import request from 'superagent';
 import { useState } from 'react';
 
 class App extends React.Component {
     constructor(props){
         super(props);
-
-        //const [dropdownOpen, setDropdownOpen] = useState(false);
-
-        //const toggle = () => setDropdownOpen(prevState => !prevState);
 
         this.state = {
             firstName : '',
@@ -18,18 +14,21 @@ class App extends React.Component {
             dateBirth: '',
             pass: '',
             mail: '',
+            rol: '',
             code: '',
             openModal: false
         }
 
-        //contenedores
+        //Enviar mensaje al registrarse_
+        this.message = this.message.bind(this);        //contenedores
         this.upDateFirstName = this.upDateFirstName.bind(this);
         this.upDateLastName =  this.upDateLastName.bind(this);
         this.upDateDateBirth = this.upDateDateBirth.bind(this);
         this.upDatePass = this.upDatePass.bind(this); 
         this.upDateMail = this.upDateMail.bind(this);
+        this.upDateRol = this.upDateRol.bind(this);
         this.upDateCode = this.upDateCode.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmitReg = this.handleSubmitReg.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.openModal = this.openModal.bind(this);
         
@@ -58,6 +57,10 @@ class App extends React.Component {
         this.setState({mail: event.target.value});
     }
 
+    upDateRol(event){
+        this.setState({rol: event.target.value});
+    }
+
     upDateCode(event){
         this.setState({code: event.target.value})
     }
@@ -65,6 +68,10 @@ class App extends React.Component {
     //Close modal
     closeModal(){
         this.setState({openModal: !this.state.openModal});
+
+        if(this.message == 'Error'){ alert('El usuario ya existe!') };
+        if(this.message == 'Ok'){ alert('BIENVENIDO A e-Ludum. Usuario registrado') };
+        if(this.message == 'Cod error'){ alert('Codigo incorrecto') };
     }
 
     //open modal and mail
@@ -74,7 +81,6 @@ class App extends React.Component {
         let flagMail = { mail: this.state.mail};
 
         try{
-
             let config = {
                 method: 'POST',
                 headers: {
@@ -83,24 +89,26 @@ class App extends React.Component {
                 },
                 body: JSON.stringify(flagMail)
             }
-            
-            let res = fetch('http://localhost:3301/sendMail', config);
-            let json = res.json(); 
+
+            fetch('http://localhost:3301/sendMail', config)
+                .then(res => res.json())
+                .then((data) => {
+                    if (data) { console.log('mail enviado'); }
+            });
 
         } catch (error){
             if(error){console.log(`Error: ${error}`)}
         }
     }
     //Click del boton:
-    handleSubmit(){
-
+    handleSubmitReg(){
         //data for backend
         let newUser = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             dateBirth: this.state.dateBirth,
             pass: this.state.pass,
-            //mail: this.state.mail,
+            rol: this.state.rol,
             code: this.state.code
         }
        
@@ -115,13 +123,33 @@ class App extends React.Component {
                 body: JSON.stringify(newUser)
             }
             
-            let res = fetch('http://localhost:3301/setNewUser', config);
-            let json = res.json();
-            console.log(json);
+            fetch('http://localhost:3301/setNewUser', config)
+                .then(res => res.json())
+                .then((data) => {
+                this.message = data[0].error;
+                /*
+                if(data[0].error == 'Error'){ alert('El usuario ya existe!') };
+                if(data[0].error == 'Ok'){ alert('BIENVENIDO A e-Ludum. Usuario registrado') };
+                if(data[0].error == 'Cod error'){ alert('Codigo incorrecto') };*/
+                console.log('el registro es: ', data[0].error); 
+            });
 
         } catch (error){
             if(error){console.log(`Error: ${error}`)}
         }
+    }
+    
+    //pedirle datos al back:
+    componentDidMount(){
+        request
+            .get('http://localhost:3301/getRol')
+            .end(function (err, res){
+                if(err){
+                    console.log('Desde registro: ', err);
+                } else {
+                    console.log('Desde registro: ', res.body);
+                }
+            });
     }
     
     render() {
@@ -167,11 +195,11 @@ class App extends React.Component {
                         </InputGroup.Prepend>
                     </InputGroup>
                     <label htmlFor="roles">Rol de usuario</label>
-                    <select id="roles" name="rol">
+                    <select id="roles" name="rol" onClickCapture={this.upDateRol}>
                         <option id="0" value="">Seleccionar Rol</option>
-                        <option id="1" value="orquestador">Orquestador</option>
-                        <option id="2" value="tutor">Tutor</option>
-                        <option id="3" value="jugador">Juegador</option>
+                        <option id="1" value="Orquestador">Orquestador</option>
+                        <option id="2" value="Tutor">Tutor</option>
+                        <option id="3" value="Jugador">Jugador</option>
                     </select>
                     
                     <Button type="submit" variant="dark" onClick={this.openModal}>Registrarse</Button>
@@ -186,7 +214,7 @@ class App extends React.Component {
                                 <input type="text" id="cod" onChange={this.upDateCode}></input>
                             </ModalBody>
                             <ModalFooter>
-                                <Button type="submit" variant="dark" onClick={this.handleSubmit}>Enviar</Button>
+                                <Button type="submit" variant="dark" onClick={this.handleSubmitReg}>Enviar</Button>
                                 <Button type="submit" variant="dark" onClick={this.closeModal}>Cerrar</Button>
                             </ModalFooter> 
                         </Modal>

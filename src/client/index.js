@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 //import './style/main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from  './component/login/Login';
 import App from './App';
 
 import './style/styles.css'
@@ -35,14 +34,17 @@ export default function Goo() {
       </>
     )
   }
+
 render(
     <Goo/>,
     document.getElementById('app')
 );
 */
 
+
 render(
     <App/>,
     document.getElementById('app')
 );
+
 

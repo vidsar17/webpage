@@ -10,7 +10,7 @@ import {
 import Login from './component/login/Login';
 import Registro from './component/registro/Registro';
 import Juego from './component/juego/juego';
-import ReactGame from './component/reactGame/reactGame';
+import UserDelete from './component/userDelete/userDelete';
 import request from 'superagent';
 import { ModalBody } from 'reactstrap';
 
@@ -19,24 +19,6 @@ import { ModalBody } from 'reactstrap';
 class App extends React.Component {
     constructor(props) {
         super(props);
-        const flag = '';
-    }
-
-    componentDidMount(){
-        request
-            .post('http://localhost:3301/setNewUser')
-            .end(function (err, res){
-                if(err){
-                    console.log('viene: ', err);
-                } else {
-                    console.log('viene: ', res.body[0].user);
-                    flag =  res.body[0].user;
-                }
-            });
-    }
-
-    myAlert(){
-        alert(flag);
     }
 
     render() {
@@ -53,8 +35,8 @@ class App extends React.Component {
                         <Link to="/juego">
                             Juego
                         </Link>
-                        <Link to="/reactGame">
-                            reactGame
+                        <Link to="/Eliminar">
+                            Eliminar
                         </Link>
                     </div>
                     <hr/> 
@@ -64,13 +46,12 @@ class App extends React.Component {
                         </Route>
                         <Route path="/Registro">
                             <Registro/>
-                            this.myAlert();
                         </Route>
                         <Route path="/juego">
                             <Juego/>
                         </Route>
-                        <Route path="/reactGame">
-                            <ReactGame/>
+                        <Route path="/Eliminar">
+                            <UserDelete/>
                         </Route>
                     </Switch>
                 </div>

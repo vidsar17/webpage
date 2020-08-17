@@ -10,11 +10,12 @@ class App extends React.Component {
         this.state = {
             username : '',
             password:''
+        
         }
 
         this.updateusername = this.updateusername.bind(this);
         this.updatepassword = this.updatepassword.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmitDelete = this.handleSubmitDelete.bind(this);
     }
 
         updateusername(event){
@@ -24,7 +25,7 @@ class App extends React.Component {
             this.setState({password : event.target.value})
         }
     
-        handleSubmit(){
+        handleSubmitDelete(){
            const data = { 
                 user: this.state.username,
                 pass: this.state.password
@@ -40,11 +41,11 @@ class App extends React.Component {
                     body: JSON.stringify(data)
                 }
 
-                fetch('http://localhost:3301/getUser', config)
+                fetch('http://localhost:3301/deleteUser', config)
                     .then(res => res.json())
-                    .then((data) => {
+                    .then((data) => {  
                         if(data[0].error == 'Error'){ alert('Usuario o Contraseña incorrectos') }
-                        if(data[0].error == 'Ok'){ alert('BIENVENIDO') }
+                        if(data[0].error == 'Ok'){ alert('USUARIO ELIMINADO') }
                     });
 
             } catch (error){
@@ -85,7 +86,7 @@ class App extends React.Component {
                
                 </InputGroup>
                 
-                <Button type="submit" onClick={this.handleSubmit}  variant="dark">Inicio</Button>
+                <Button type="submit" onClick={this.handleSubmitDelete}  variant="dark">Eliminar usuario</Button>
                 </Col>   
                 </Container>
             </div>
