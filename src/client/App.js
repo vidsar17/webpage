@@ -13,32 +13,33 @@ import Juego from './component/juego/juego';
 import UserDelete from './component/userDelete/userDelete';
 import request from 'superagent';
 import { ModalBody } from 'reactstrap';
+import { slide as Menu } from 'react-burger-menu';
+import { TRUE } from 'node-sass';
 
 
 //function App() {
 class App extends React.Component {
     constructor(props) {
         super(props);
+       
     }
+
 
     render() {
         return (
             <Router>
                 <div>
-                    <div>
-                        <Link to="/Login">
-                            Login
-                        </Link>
-                        <Link to="/Registro">
-                            Registro
-                        </Link>
-                        <Link to="/juego">
-                            Juego
-                        </Link>
-                        <Link to="/Eliminar">
-                            Eliminar
-                        </Link>
-                    </div>
+
+                <Menu >
+            <a id="home" className="menu-item"><Link to="/Login">LOGIN</Link></a>
+            <a id="about" className="menu-item"><Link to="/Registro">REGISTRO</Link></a>
+            <a id="contact" className="menu-item" ><Link to="/juego">JUEGO</Link></a>
+            <a id="contact" className="menu-item" > <Link to="/Eliminar"> ELIMINAR</Link></a>
+        
+          </Menu>
+
+
+                  
                     <hr/> 
                     <Switch>
                         <Route path="/Login">

@@ -1,7 +1,9 @@
 const React = require('react');
-import { Button, InputGroup, FormControl,Container,Col } from 'react-bootstrap';
+import { Button, InputGroup, FormControl,Container,Form } from 'react-bootstrap';
 
 import {functionnode} from '../../../login/loginserver';
+
+
 
 class App extends React.Component {  
     constructor(props) {
@@ -56,39 +58,42 @@ class App extends React.Component {
     render() {
         
         return (
-            <div>
-                <Container>
-                  
-
-                <Col md={6}>
-
-               {/* <img src={require(`${myImg}`)} /> */}
-                                 
-                <InputGroup className="mb-3">
-                    <InputGroup.Prepend>
-                        <label>Correo</label>
-                        <input type="email" id="username" onChange={this.updateusername}></input>
-                    </InputGroup.Prepend>
+        
+       <div>
+         	<div className="modal-dialog login">
+		<div className="modal-content">
+			<div className="modal-header">
+            <div class="avatar">
+					<img src={'../component/imgs/login.jpg'} alt="Avatar"></img>
+				</div>
+					
+				<h4 class="modal-title">BIENVENIDO</h4>	
                
-                </InputGroup>
+			</div>
+			<div className="modal-body">
+				
+					<div className="form-group">
+			
+                        <input type="email" className="form-control" id="username" placeholder="Usuario" required="required" onChange={this.updateusername}></input>	
+					</div>
+					<div class="form-group">
+						
+                       
+                        <input type="password" className="form-control" placeholder="Password" id="password" onChange={this.updatepassword}></input>
+					</div>        
+					<div class="form-group">
+						<button type="submit"   onClick={this.handleSubmit} className="btn btn-primary btn-lg btn-block login-btn">Ingresar</button>
+					</div>
+				
+			</div>
+			<div class="modal-footer">
+				<a href="#">Recuperar Password</a>
+			</div>
+		</div>
+	</div>
+       </div>
+		
 
-                <InputGroup className="mb-3">
-                    <InputGroup.Prepend>
-                    <label>Clave</label>
-                        <div classname="fondo">
-                            <Container>
-                                <input type="password" id="password" onChange={this.updatepassword}></input>
-                            </Container>
-                        </div>
-
-                    </InputGroup.Prepend>
-               
-                </InputGroup>
-                
-                <Button type="submit" onClick={this.handleSubmit}  variant="dark">Inicio</Button>
-                </Col>   
-                </Container>
-            </div>
         )
     }
 }
