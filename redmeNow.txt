@@ -49,4 +49,10 @@
                         <DropdownItem>Quo Action</DropdownItem>
                     </DropdownMenu>
                     </Dropdown>
+
+
+                    17/08/2020:
+    # Se instalo el modulo: react-burger-menu
+    # con la instruccion: npm install react-burger-menu --save
+    # Se utiliza para la navegacion del menu
                    
