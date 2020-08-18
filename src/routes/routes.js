@@ -49,7 +49,7 @@ router.post('/getUser', async (req,res) => {
     } else {
         res.json(passError);
     }
-});
+}); 
 
 router.post('/deleteUser', async (req, res) => {
     var getPass;

@@ -2,8 +2,6 @@ const nodeMailer = require('nodemailer');
 const helper = require('../helpers/helpers');
 const help = new helper();
 
-//const cod = help.generateCode();
-
 class SendMails {
 
     newMailDelivery(box, cod){

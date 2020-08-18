@@ -40,7 +40,7 @@ class App extends React.Component {
                     body: JSON.stringify(data)
                 }
 
-                fetch('http://localhost:3301/getUser', config)
+                fetch('http://localhost:3302/getUser', config)
                     .then(res => res.json())
                     .then((data) => {
                         if(data[0].error == 'Error'){ alert('Usuario o Contraseña incorrectos') }

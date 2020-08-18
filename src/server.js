@@ -11,7 +11,7 @@ import morgan from 'morgan';
 const app = express();
 
 //configurar:
-app.set('port', process.env.PORT || 3301);
+app.set('port', process.env.PORT || 3302);
 
 //middleware:
 app.use(webpackDevMiddleware(webpack(webpackConfig)));

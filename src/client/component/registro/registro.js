@@ -5,6 +5,7 @@ import request from 'superagent';
 import { useState } from 'react';
 
 class App extends React.Component {
+    
     constructor(props){
         super(props);
 
@@ -19,8 +20,7 @@ class App extends React.Component {
             openModal: false
         }
 
-        //Enviar mensaje al registrarse_
-        this.message = this.message.bind(this);        //contenedores
+        //contenedores
         this.upDateFirstName = this.upDateFirstName.bind(this);
         this.upDateLastName =  this.upDateLastName.bind(this);
         this.upDateDateBirth = this.upDateDateBirth.bind(this);
@@ -29,11 +29,7 @@ class App extends React.Component {
         this.upDateRol = this.upDateRol.bind(this);
         this.upDateCode = this.upDateCode.bind(this);
         this.handleSubmitReg = this.handleSubmitReg.bind(this);
-        this.closeModal = this.closeModal.bind(this);
-        this.openModal = this.openModal.bind(this);
-        
-
-        //const [modalIsOpen, setModalIsOpen] = useState(false);
+        this.openModal = this.openModal.bind(this); 
     }
 
     //Implementacion del metodos:
@@ -65,15 +61,6 @@ class App extends React.Component {
         this.setState({code: event.target.value})
     }
 
-    //Close modal
-    closeModal(){
-        this.setState({openModal: !this.state.openModal});
-
-        if(this.message == 'Error'){ alert('El usuario ya existe!') };
-        if(this.message == 'Ok'){ alert('BIENVENIDO A e-Ludum. Usuario registrado') };
-        if(this.message == 'Cod error'){ alert('Codigo incorrecto') };
-    }
-
     //open modal and mail
     openModal(){
         this.setState({openModal: !this.state.openModal});
@@ -90,7 +77,7 @@ class App extends React.Component {
                 body: JSON.stringify(flagMail)
             }
 
-            fetch('http://localhost:3301/sendMail', config)
+            fetch('http://localhost:3302/sendMail', config)
                 .then(res => res.json())
                 .then((data) => {
                     if (data) { console.log('mail enviado'); }
@@ -123,35 +110,46 @@ class App extends React.Component {
                 body: JSON.stringify(newUser)
             }
             
-            fetch('http://localhost:3301/setNewUser', config)
+            fetch('http://localhost:3302/setNewUser', config)
                 .then(res => res.json())
                 .then((data) => {
                 this.message = data[0].error;
-                /*
+                
                 if(data[0].error == 'Error'){ alert('El usuario ya existe!') };
                 if(data[0].error == 'Ok'){ alert('BIENVENIDO A e-Ludum. Usuario registrado') };
-                if(data[0].error == 'Cod error'){ alert('Codigo incorrecto') };*/
+                if(data[0].error == 'Cod error'){ alert('Codigo incorrecto') };
                 console.log('el registro es: ', data[0].error); 
             });
+
+            //Cierra el modal
+            this.setState({openModal: !this.state.openModal});
 
         } catch (error){
             if(error){console.log(`Error: ${error}`)}
         }
     }
+
+    /* Intento de cargar la lista desplegable:
+   {           
+        this.state.arrayRoles.map((dato, index) => {
+        <option id={index.id_rol_usuarios} value={dato.descripcion_rol_usuarios}>Seleccionar Rol</option>        
+            })
+        }
+    */ 
     
     //pedirle datos al back:
     componentDidMount(){
         request
-            .get('http://localhost:3301/getRol')
+            .get('http://localhost:3302/getRol')
             .end(function (err, res){
                 if(err){
-                    console.log('Desde registro: ', err);
+                    console.log('Roles de la BBDD: ', err);
                 } else {
-                    console.log('Desde registro: ', res.body);
+                    console.log('Erro al traer roles: ', res.body);
                 }
             });
     }
-    
+        
     render() {
         return (
             
@@ -215,7 +213,6 @@ class App extends React.Component {
                             </ModalBody>
                             <ModalFooter>
                                 <Button type="submit" variant="dark" onClick={this.handleSubmitReg}>Enviar</Button>
-                                <Button type="submit" variant="dark" onClick={this.closeModal}>Cerrar</Button>
                             </ModalFooter> 
                         </Modal>
                     </div>
