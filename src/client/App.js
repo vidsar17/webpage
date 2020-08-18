@@ -14,7 +14,7 @@ import UserDelete from './component/userDelete/userDelete';
 import request from 'superagent';
 import { ModalBody } from 'reactstrap';
 import { slide as Menu } from 'react-burger-menu';
-import { TRUE } from 'node-sass';
+//import { TRUE } from 'node-sass';
 
 
 //function App() {
@@ -30,11 +30,11 @@ class App extends React.Component {
             <Router>
                 <div>
 
-                <Menu >
-            <a id="home" className="menu-item"><Link to="/Login">LOGIN</Link></a>
-            <a id="about" className="menu-item"><Link to="/Registro">REGISTRO</Link></a>
-            <a id="contact" className="menu-item" ><Link to="/juego">JUEGO</Link></a>
-            <a id="contact" className="menu-item" > <Link to="/Eliminar"> ELIMINAR</Link></a>
+                <Menu isOpen={true} >
+            <a id="home"  className="menu-item colortext"><Link to="/Login">LOGIN</Link></a>
+            <a id="about" className="menu-item colortext"><Link to="/Registro">REGISTRO</Link></a>
+            <a id="contact" className="menu-item colortext" ><Link to="/juego">JUEGO</Link></a>
+            <a id="contact" className="menu-item colortext" > <Link to="/Eliminar"> ELIMINAR</Link></a>
         
           </Menu>
 
