@@ -41,7 +41,7 @@ class App extends React.Component {
                     body: JSON.stringify(data)
                 }
 
-                fetch('http://localhost:3301/deleteUser', config)
+                fetch('http://localhost:3302/deleteUser', config)
                     .then(res => res.json())
                     .then((data) => {  
                         if(data[0].error == 'Error'){ alert('Usuario o Contraseña incorrectos') }
