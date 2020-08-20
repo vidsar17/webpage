@@ -24,12 +24,13 @@ router.get('/getRol', async (req, res) => {
     res.json(roles);
 });
 
+/*
 router.get('/Registro', (req, res) => {
-    let html = ReactDOMServer.renderToString(<Registro />);
-
-    res.render(html);
+   
+    res.send(html);
     console.log('Hola lpm!');
 });
+*/
 
 router.post('/getUser', async (req,res) => {
     var getPass;
