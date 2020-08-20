@@ -17,6 +17,7 @@ class App extends React.Component {
         this.updateusername = this.updateusername.bind(this);
         this.updatepassword = this.updatepassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmitprueba = this.handleSubmitprueba.bind(this);
     }
 
         updateusername(event){
@@ -46,7 +47,10 @@ class App extends React.Component {
                     .then(res => res.json())
                     .then((data) => {
                         if(data[0].error == 'Error'){ alert('Usuario o Contraseña incorrectos') }
-                        if(data[0].error == 'Ok'){ alert('BIENVENIDO') }
+                        if(data[0].error == 'Ok'){ alert('BIENVENIDO')
+
+
+                     }
                     });
 
             } catch (error){
@@ -54,6 +58,37 @@ class App extends React.Component {
             }
 
         }
+        handleSubmitprueba(){
+            const data = { 
+                 user: this.state.username,
+                 pass: this.state.password
+             }  
+ 
+             try {
+                 let config = {
+                     method: 'POST',
+                     headers: {
+                         'Accept': 'application/json',
+                         'Content-Type': 'application/json'
+                     },
+                     body: JSON.stringify(data)
+                 }
+ 
+                 fetch('http://localhost:3302/getUserprueba', config)
+                     .then(res => res.json())
+                     .then((data) => {
+                         if(data[0].error == 'Error'){ alert('Usuario o Contraseña incorrectos') }
+                         if(data[0].error == 'Ok'){ alert('BIENVENIDO')
+ 
+ 
+                      }
+                     });
+ 
+             } catch (error){
+                 if(error){console.log('Error: ', error)}
+             }
+ 
+         }
 
     render() {
         
@@ -83,6 +118,7 @@ class App extends React.Component {
 					</div>        
 					<div class="form-group">
 						<button type="submit"   onClick={this.handleSubmit} className="btn btn-primary btn-lg btn-block login-btn">Ingresar</button>
+                        <button type="submit"   onClick={this.handleSubmitprueba} className="btn btn-primary btn-lg btn-block login-btn">Prueba</button>
 					</div>
 				
 			</div>
