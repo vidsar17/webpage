@@ -33,6 +33,7 @@ class App extends React.Component {
             pass: this.state.password
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
     
         handleSubmit(){
            const data = { 
@@ -63,6 +64,8 @@ class App extends React.Component {
             } catch (error){
                 if(error){console.log('Error: ', error)}
 =======
+=======
+>>>>>>> abfeedd9faa4f5acaf928bfd9af57e9e4c944a93
 
         try {
             let config = {
@@ -72,6 +75,9 @@ class App extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
+<<<<<<< HEAD
+>>>>>>> abfeedd9faa4f5acaf928bfd9af57e9e4c944a93
+=======
 >>>>>>> abfeedd9faa4f5acaf928bfd9af57e9e4c944a93
             }
 
@@ -119,9 +125,12 @@ class App extends React.Component {
 
     }
 
+    }
+
     render() {
 
         return (
+<<<<<<< HEAD
 <<<<<<< HEAD
         
        <div>
@@ -160,6 +169,8 @@ class App extends React.Component {
        </div>
 		
 =======
+=======
+>>>>>>> abfeedd9faa4f5acaf928bfd9af57e9e4c944a93
             <div>
                 <Container>
 
@@ -190,6 +201,9 @@ class App extends React.Component {
                         </InputGroup>
 
                         <Button type="submit" onClick={this.handleSubmit} variant="dark">Inicio</Button>
+<<<<<<< HEAD
+>>>>>>> abfeedd9faa4f5acaf928bfd9af57e9e4c944a93
+=======
 >>>>>>> abfeedd9faa4f5acaf928bfd9af57e9e4c944a93
 
                         

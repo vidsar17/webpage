@@ -8,7 +8,7 @@ class App extends React.Component {
     
     constructor(props){
         super(props);
-        
+
         this.state = {
             firstName : '',
             lastName: '',
@@ -32,7 +32,6 @@ class App extends React.Component {
         this.openModal = this.openModal.bind(this); 
     }
 
-    
     //Implementacion del metodos:
     upDateFirstName(event){
         this.setState({firstName: event.target.value});
@@ -97,7 +96,7 @@ class App extends React.Component {
             dateBirth: this.state.dateBirth,
             pass: this.state.pass,
             rol: this.state.rol,
-            code: this.state.code,
+            code: this.state.code
         }
        
         try{
@@ -144,9 +143,9 @@ class App extends React.Component {
             .get('http://localhost:3302/getRol')
             .end(function (err, res){
                 if(err){
-                    console.log('Erro al traer roles: ', err);
+                    console.log('Roles de la BBDD: ', err);
                 } else {
-                    console.log('Roles de la BBDD: ', res.body);
+                    console.log('Erro al traer roles: ', res.body);
                 }
             });
     }
@@ -159,49 +158,14 @@ class App extends React.Component {
                 <Container>
                     <Col md={6}>
                     {/* <img src={require(`${myImg}`)} /> */}
-                    <InputGroup className="mb-3">
-                        <InputGroup.Prepend>
-                            <label>Nombre </label>
-                            <input type="text" id="nombre" onChange={this.upDateFirstName}></input>
-                        </InputGroup.Prepend>
-                    </InputGroup>
-
-                    <InputGroup className="mb-3">
-                        <InputGroup.Prepend>
-                            <label>Apellido </label>    
-                            <input type="text" id="apellido" onChange={this.upDateLastName}></input>
-                        </InputGroup.Prepend>
-                    </InputGroup>
-
-                    <InputGroup className="mb-3">
-                        <InputGroup.Prepend>
-                            <label>Fecha de nacimiento </label>    
-                            <input type="date" id="nacimiento" onChange={this.upDateDateBirth}></input>
-                        </InputGroup.Prepend>
-                    </InputGroup>
-
-                    <InputGroup className="mb-3">
-                        <InputGroup.Prepend>
-                            <label>Clave </label>    
-                            <input type="password" id="pass" onChange={this.upDatePass}></input>
-                        </InputGroup.Prepend>
-                    </InputGroup>
-
+                    
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
                             <label>Correo </label>    
                             <input type="email" id="mail" onChange={this.upDateMail}></input>
                         </InputGroup.Prepend>
                     </InputGroup>
-                    <label htmlFor="roles">Rol de usuario</label>
-                    
-                    <select id="roles" name="rol" onClickCapture={this.upDateRol}>
-                        <option id="0" value="">Seleccionar Rol</option>
-                        <option id="1" value="Orquestador">Orquestador</option>
-                        <option id="2" value="Tutor">Tutor</option>
-                        <option id="3" value="Jugador">Jugador</option>
-                    </select>
-                    
+        
                     <Button type="submit" variant="dark" onClick={this.openModal}>Registrarse</Button>
                     </Col>   
 
