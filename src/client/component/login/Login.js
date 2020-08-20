@@ -27,12 +27,15 @@ class App extends React.Component {
         this.setState({ password: event.target.value })
     }
 
-    handleSubmit() {
-        const data = {
-            user: this.state.username,
-            pass: this.state.password
-        }
 
+
+
+    
+        handleSubmit(){
+           const data = { 
+                user: this.state.username,
+                pass: this.state.password
+            }  
 
             try {
                 let config = {
@@ -56,9 +59,9 @@ class App extends React.Component {
 
             } catch (error){
                 if(error){console.log('Error: ', error)}
-=======
-=======
->>>>>>> abfeedd9faa4f5acaf928bfd9af57e9e4c944a93
+
+
+
 
         try {
             let config = {
@@ -68,10 +71,10 @@ class App extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
-<<<<<<< HEAD
->>>>>>> abfeedd9faa4f5acaf928bfd9af57e9e4c944a93
-=======
->>>>>>> abfeedd9faa4f5acaf928bfd9af57e9e4c944a93
+
+
+
+
             }
 
             fetch('http://localhost:3302/getUser', config)
@@ -84,37 +87,7 @@ class App extends React.Component {
         } catch (error) {
             if (error) { console.log('Error: ', error) }
         }
-        handleSubmitprueba(){
-            const data = { 
-                 user: this.state.username,
-                 pass: this.state.password
-             }  
- 
-             try {
-                 let config = {
-                     method: 'POST',
-                     headers: {
-                         'Accept': 'application/json',
-                         'Content-Type': 'application/json'
-                     },
-                     body: JSON.stringify(data)
-                 }
- 
-                 fetch('http://localhost:3302/getUserprueba', config)
-                     .then(res => res.json())
-                     .then((data) => {
-                         if(data[0].error == 'Error'){ alert('Usuario o Contraseña incorrectos') }
-                         if(data[0].error == 'Ok'){ alert('BIENVENIDO')
- 
- 
-                      }
-                     });
- 
-             } catch (error){
-                 if(error){console.log('Error: ', error)}
-             }
- 
-         }
+      
 
     }
 
@@ -123,8 +96,8 @@ class App extends React.Component {
     render() {
 
         return (
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
         
        <div>
          	<div className="modal-dialog login">
@@ -161,48 +134,10 @@ class App extends React.Component {
 	</div>
        </div>
 		
-=======
-=======
->>>>>>> abfeedd9faa4f5acaf928bfd9af57e9e4c944a93
-            <div>
-                <Container>
 
 
-                    <Col md={6}>
 
-                        {/* <img src={require(`${myImg}`)} /> */}
-
-                        <InputGroup className="mb-3">
-                            <InputGroup.Prepend>
-                                <label>Correo</label>
-                                <input type="email" id="username" onChange={this.updateusername}></input>
-                            </InputGroup.Prepend>
-
-                        </InputGroup>
-
-                        <InputGroup className="mb-3">
-                            <InputGroup.Prepend>
-                                <label>Clave</label>
-                                <div classname="fondo">
-                                    <Container>
-                                        <input type="password" id="password" onChange={this.updatepassword}></input>
-                                    </Container>
-                                </div>
-
-                            </InputGroup.Prepend>
-
-                        </InputGroup>
-
-                        <Button type="submit" onClick={this.handleSubmit} variant="dark">Inicio</Button>
-<<<<<<< HEAD
->>>>>>> abfeedd9faa4f5acaf928bfd9af57e9e4c944a93
-=======
->>>>>>> abfeedd9faa4f5acaf928bfd9af57e9e4c944a93
-
-                        
-                    </Col>
-                </Container>
-            </div>
+           
         )
     }
 }
