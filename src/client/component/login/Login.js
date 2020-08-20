@@ -1,21 +1,11 @@
 const React = require('react');
-<<<<<<< HEAD
 import { Button, InputGroup, FormControl, Container, Col } from 'react-bootstrap';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Restablecer from '../Restablecer/restablecer'
-=======
-import { Button, InputGroup, FormControl,Container,Form } from 'react-bootstrap';
->>>>>>> bd2afd3479b822f9cc02ff81d9fbfe218c3dd96d
 
 import { functionnode } from '../../../login/loginserver';
 
-<<<<<<< HEAD
 class App extends React.Component {
-=======
-
-
-class App extends React.Component {  
->>>>>>> bd2afd3479b822f9cc02ff81d9fbfe218c3dd96d
     constructor(props) {
         super(props);
 
@@ -98,44 +88,12 @@ class App extends React.Component {
                         </InputGroup>
 
                         <Button type="submit" onClick={this.handleSubmit} variant="dark">Inicio</Button>
+
+                        
                     </Col>
                 </Container>
             </div>
-       <div>
-         	<div className="modal-dialog login">
-		<div className="modal-content">
-			<div className="modal-header">
-            <div class="avatar">
-					<img src={'../component/imgs/login.jpg'} alt="Avatar"></img>
-				</div>
-					
-				<h4 class="modal-title">BIENVENIDO</h4>	
-               
-			</div>
-			<div className="modal-body">
-				
-					<div className="form-group">
-			
-                        <input type="email" className="form-control" id="username" placeholder="Usuario" required="required" onChange={this.updateusername}></input>	
-					</div>
-					<div class="form-group">
-						
-                       
-                        <input type="password" className="form-control" placeholder="Password" id="password" onChange={this.updatepassword}></input>
-					</div>        
-					<div class="form-group">
-						<button type="submit"   onClick={this.handleSubmit} className="btn btn-primary btn-lg btn-block login-btn">Ingresar</button>
-					</div>
-				
-			</div>
-			<div class="modal-footer">
-				<a href="#">Recuperar Password</a>
-			</div>
-		</div>
-	</div>
-       </div>
-		
-        
+        )
     }
 }
 

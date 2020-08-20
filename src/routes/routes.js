@@ -11,7 +11,7 @@ const bcrypt = require('bcrypt');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const login = require('../client/component/login/Login');
-const Registro = require('../client/component/registro/Registro');
+const Registro  = require('../client/component/registro/Registro');
 
 //metodos de ayuda:
 const help = new helper(); 
@@ -24,13 +24,16 @@ router.get('/getRol', async (req, res) => {
     res.json(roles);
 });
 
-/*
+
 router.get('/Registro', (req, res) => {
-   
+    var html = ReactDOMServer.renderToString(
+        React.createElement(Registro)
+    );
+    console.log(Registro);
     res.send(html);
     console.log('Hola lpm!');
 });
-*/
+
 
 router.post('/getUser', async (req,res) => {
     var getPass;

@@ -8,7 +8,7 @@ class App extends React.Component {
     
     constructor(props){
         super(props);
-
+        
         this.state = {
             firstName : '',
             lastName: '',
@@ -32,6 +32,7 @@ class App extends React.Component {
         this.openModal = this.openModal.bind(this); 
     }
 
+    
     //Implementacion del metodos:
     upDateFirstName(event){
         this.setState({firstName: event.target.value});
@@ -96,7 +97,7 @@ class App extends React.Component {
             dateBirth: this.state.dateBirth,
             pass: this.state.pass,
             rol: this.state.rol,
-            code: this.state.code
+            code: this.state.code,
         }
        
         try{
@@ -143,9 +144,9 @@ class App extends React.Component {
             .get('http://localhost:3302/getRol')
             .end(function (err, res){
                 if(err){
-                    console.log('Roles de la BBDD: ', err);
+                    console.log('Erro al traer roles: ', err);
                 } else {
-                    console.log('Erro al traer roles: ', res.body);
+                    console.log('Roles de la BBDD: ', res.body);
                 }
             });
     }
@@ -193,6 +194,7 @@ class App extends React.Component {
                         </InputGroup.Prepend>
                     </InputGroup>
                     <label htmlFor="roles">Rol de usuario</label>
+                    
                     <select id="roles" name="rol" onClickCapture={this.upDateRol}>
                         <option id="0" value="">Seleccionar Rol</option>
                         <option id="1" value="Orquestador">Orquestador</option>
