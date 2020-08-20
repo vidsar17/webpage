@@ -32,14 +32,7 @@ class App extends React.Component {
             user: this.state.username,
             pass: this.state.password
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
-    
-        handleSubmit(){
-           const data = { 
-                user: this.state.username,
-                pass: this.state.password
-            }  
+
 
             try {
                 let config = {
