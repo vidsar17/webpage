@@ -16,7 +16,7 @@ class App extends React.Component {
 
         this.updateusername = this.updateusername.bind(this);
         this.updatepassword = this.updatepassword.bind(this);
-       
+        this.handleSubmit = this.handleSubmit.bind(this);
         
     }
 
@@ -31,34 +31,34 @@ class App extends React.Component {
 
 
     
-    //     handleSubmit(){
-    //        const data = { 
-    //             user: this.state.username,
-    //             pass: this.state.password
-    //         }  
+        handleSubmit(){
+           const data = { 
+                user: this.state.username,
+                pass: this.state.password
+            }  
 
-    //         try {
-    //             let config = {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Accept': 'application/json',
-    //                     'Content-Type': 'application/json'
-    //                 },
-    //                 body: JSON.stringify(data)
-    //             }
+            try {
+                let config = {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }
 
-    //             fetch('http://localhost:3302/getUser', config)
-    //                 .then(res => res.json())
-    //                 .then((data) => {
-    //                     if(data[0].error == 'Error'){ alert('Usuario o Contraseña incorrectos') }
-    //                     if(data[0].error == 'Ok'){ alert('BIENVENIDO')
+                fetch('http://localhost:3302/getUser', config)
+                    .then(res => res.json())
+                    .then((data) => {
+                        if(data[0].error == 'Error'){ alert('Usuario o Contraseña incorrectos') }
+                        if(data[0].error == 'Ok'){ alert('BIENVENIDO')
 
 
-    //                  }
-    //                 });
+                     }
+                    });
 
-    //         } catch (error){
-    //             if(error){console.log('Error: ', error)}
+            } catch (error){
+                if(error){console.log('Error: ', error)}
 
 
 
@@ -66,9 +66,9 @@ class App extends React.Component {
         
       
 
-    // }
+    }
 
-    // }
+    }
 
     render() {
 
